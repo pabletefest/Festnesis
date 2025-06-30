@@ -9,6 +9,7 @@ public:
   ~M68000() = default;
 
   auto reset() -> void;
+  auto fetch() -> std::uint16_t;
   auto runInstruction() -> std::uint8_t;
 
   template<std::unsigned_integral T>

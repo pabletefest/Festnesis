@@ -1,11 +1,21 @@
 #include "cpu/m68000.hpp"
+#include "cpu/m68000_regs.hpp"
 
 #include <bit>
+#include <cstring>
 #include <endian.h>
 
 M68000::M68000() {}
 
-auto M68000::reset() -> void {}
+auto M68000::reset() -> void {
+  std::memset(&regs, 0, sizeof(M68000Regs));
+}
+
+auto M68000::fetch() -> std::uint16_t {
+  std::uint16_t word = read<std::uint16_t>(regs.getPC());
+  regs.setPC(regs.getPC() + 2);
+  return word;
+}
 
 auto M68000::runInstruction() -> std::uint8_t {
   return std::uint8_t();
