@@ -9,15 +9,15 @@ M68000::M68000() {}
 
 auto M68000::reset() -> void { std::memset(&regs, 0, sizeof(M68000Regs)); }
 
-auto M68000::fetch() -> std::uint16_t {
-  std::uint16_t word = read<std::uint16_t>(regs.getPC());
+auto M68000::fetch() -> u16 {
+  u16 word = read<u16>(regs.getPC());
   regs.setPC(regs.getPC() + 2);
   return word;
 }
 
-auto M68000::runInstruction() -> std::uint8_t { return std::uint8_t(); }
+auto M68000::runInstruction() -> u8 { return u8(); }
 
-template <typename T> auto M68000::read(std::uint32_t address) const -> T {
+template <typename T> auto M68000::read(u32 address) const -> T {
   static_assert(std::is_unsigned_v<T> == true);
 
   T value = T();
@@ -30,7 +30,7 @@ template <typename T> auto M68000::read(std::uint32_t address) const -> T {
 }
 
 template <typename T>
-auto M68000::write(std::uint32_t address, T value) -> void {
+auto M68000::write(u32 address, T value) -> void {
   static_assert(std::is_unsigned_v<T> == true);
 
   if constexpr (std::endian::native == std::endian::little) {
@@ -38,7 +38,7 @@ auto M68000::write(std::uint32_t address, T value) -> void {
   }
 }
 
-auto M68000::getAddressingMode(std::uint8_t M, std::uint8_t Xn)
+auto M68000::getAddressingMode(u8 M, u8 Xn)
     -> AddressingMode {
 
   switch (M) {
@@ -89,15 +89,15 @@ auto M68000::getAddressingMode(std::uint8_t M, std::uint8_t Xn)
   return AddressingMode();
 }
 
-auto M68000::dataRegister() -> std::uint32_t {}
-auto M68000::addressRegister() -> std::uint32_t {}
-auto M68000::address() -> std::uint32_t {}
-auto M68000::addressPostincrement() -> std::uint32_t {}
-auto M68000::addressPredecrement() -> std::uint32_t {}
-auto M68000::addressDisplacement() -> std::uint32_t {}
-auto M68000::addressIndex() -> std::uint32_t {}
-auto M68000::PCDisplacement() -> std::uint32_t {}
-auto M68000::PCIndex() -> std::uint32_t {}
-auto M68000::absoluteShort() -> std::uint32_t {}
-auto M68000::absoluteLong() -> std::uint32_t {}
-auto M68000::immediate() -> std::uint32_t {}
+auto M68000::dataRegister() -> u32 {}
+auto M68000::addressRegister() -> u32 {}
+auto M68000::address() -> u32 {}
+auto M68000::addressPostincrement() -> u32 {}
+auto M68000::addressPredecrement() -> u32 {}
+auto M68000::addressDisplacement() -> u32 {}
+auto M68000::addressIndex() -> u32 {}
+auto M68000::PCDisplacement() -> u32 {}
+auto M68000::PCIndex() -> u32 {}
+auto M68000::absoluteShort() -> u32 {}
+auto M68000::absoluteLong() -> u32 {}
+auto M68000::immediate() -> u32 {}
