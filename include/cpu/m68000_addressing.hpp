@@ -9,5 +9,5 @@ class M68000;
 struct AddressingMode {
   std::string name;
   std::string format;
-  std::function<std::uint32_t(M68000 &)> addressing;
+  std::function<std::uint32_t(void)> addressing;
 };

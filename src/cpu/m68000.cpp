@@ -40,6 +40,52 @@ auto M68000::write(std::uint32_t address, T value) -> void {
 
 auto M68000::getAddressingMode(std::uint8_t M, std::uint8_t Xn)
     -> AddressingMode {
+
+  switch (M) {
+  case 0b000:
+    return {"Data register", "Dn", [this]() -> u32 { return dataRegister(); }};
+
+  case 0b001:
+    return {"Address register", "An",
+            [this]() -> u32 { return addressRegister(); }};
+
+  case 0b010:
+    return {"Address", "(An)", [this]() -> u32 { return address(); }};
+
+  case 0b011:
+    return {"Address with Postincrement", "(An)+", [this]() -> u32 { return addressPostincrement(); }};
+
+  case 0b100:
+    return {"Address with Predecrement", "-(An)", [this]() -> u32 { return addressPredecrement(); }};
+
+  case 0b101:
+    return {"Address with Displacement", "(d16, An)", [this]() -> u32 { return addressDisplacement(); }};
+
+  case 0b110:
+    return {"Address with Index", "(d16, An, Xn)", [this]() -> u32 { return addressIndex(); }};
+
+  case 0b111:
+    switch (Xn) {
+    case 0b010:
+      return {"Program Counter with Displacement", "(d16, PC)", [this]() { return PCDisplacement(); }};
+
+    case 0b011:
+      return {"Program Counter with Index", "(d16, PC, Xn)", [this]() { return PCIndex(); }};
+
+    case 0b000:
+      return {"Absolute short", "(xxx).W", [this]() { return absoluteShort(); }};
+
+    case 0b001:
+      return {"Absolute long", "(xxx).L", [this]() { return absoluteLong(); }};
+
+    case 0b100:
+      return {"Immediate", "#Imm", [this]() { return immediate(); }};
+    }
+  default:
+    break;
+  }
+
+  // TODO: logging
   return AddressingMode();
 }
 
