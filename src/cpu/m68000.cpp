@@ -5,6 +5,8 @@
 #include <cstring>
 #include <type_traits>
 
+namespace Festnesis {
+
 M68000::M68000() {}
 
 auto M68000::reset() -> void { std::memset(&regs, 0, sizeof(M68000Regs)); }
@@ -101,3 +103,5 @@ auto M68000::PCIndex() -> u32 {}
 auto M68000::absoluteShort() -> u32 {}
 auto M68000::absoluteLong() -> u32 {}
 auto M68000::immediate() -> u32 {}
+
+};

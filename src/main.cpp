@@ -5,7 +5,7 @@
 int main() {
   std::println("Hello from Festnesis emulator!");
 
-  M68000 cpu;
+  Festnesis::M68000 cpu;
 
   return 0;
 }

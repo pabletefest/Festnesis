@@ -4,7 +4,7 @@
 #include "m68000_addressing.hpp"
 #include "m68000_regs.hpp"
 
-using namespace Festnesis;
+namespace Festnesis {
 
 class M68000 {
 public:
@@ -38,4 +38,6 @@ private:
 
 private:
   M68000Regs regs{};
+};
+
 };

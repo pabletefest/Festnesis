@@ -5,6 +5,8 @@
 #include <array>
 #include <cstdint>
 
+namespace Festnesis {
+
 class M68000Regs {
 public:
   M68000Regs() = default;
@@ -55,4 +57,6 @@ private:
     u8 CCR;    // User Byte (Low)
     u8 system; // System Byte (High)
   } SR{};
+};
+
 };
